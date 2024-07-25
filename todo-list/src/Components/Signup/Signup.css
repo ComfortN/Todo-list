@@ -1,0 +1,86 @@
+.SignUp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #592E83;
+}
+
+.leftSignUp, .rightSignUp {
+flex: 1;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+
+.rightSignUp {
+height: 100vh;
+background-color: #CAA8F5;
+}
+
+.signUpForm {
+width: 100%;
+max-width: 400px;
+padding: 16px;
+background-color:#592E83;
+border-radius: 8px;
+}
+
+.signUpForm .MuiTypography-root {
+color: #ffffff;
+}
+
+.signUpForm .MuiTextField-root {
+margin: 8px 0;
+
+}
+
+.signUpForm .MuiButton-root {
+background-color: #9984D4;
+color: #ffffff;
+margin: 15px 0;
+}
+
+.signUpForm .MuiButton-root:hover {
+
+background-color: #CAA8F5;
+}
+
+
+.signUpImg img {
+width: 100%;
+}
+
+
+.signUpForm .login-link {
+margin-top: 16px;
+text-align: center;
+color: #CAA8F5;
+}
+
+
+.signUpForm .login-link a {
+color: #CAA8F5;
+text-decoration: none;
+font-weight: bold;
+}
+
+
+.signUpForm .login-link a:hover {
+color: #CAA8F5;
+}
+
+
+
+@media (max-width: 600px) {
+.SignUp {
+    flex-direction: column;
+}
+
+.leftSignUp {
+    order: -1;
+}
+
+
+}

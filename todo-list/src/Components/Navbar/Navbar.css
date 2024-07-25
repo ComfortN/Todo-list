@@ -1,0 +1,28 @@
+.Navbar {
+    /* background-color: #230C33; */
+    /* background-color: black; */
+    color: #CAA8F5;
+  }
+  
+  .Navbar .MuiToolbar-root {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .Navbar .MuiButton-root {
+    color: #CAA8F5;
+  }
+  
+  .Navbar .MuiButton-root:hover {
+    background-color: #9984D4;
+  }
+  
+  .Navbar .MuiIconButton-root {
+    color: #CAA8F5;
+  }
+  
+  .Navbar .MuiIconButton-root:hover {
+    color: #9984D4;
+  }
+  

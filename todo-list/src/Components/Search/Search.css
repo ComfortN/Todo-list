@@ -1,0 +1,30 @@
+.searchBarContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    
+}
+
+
+.searching{
+    display: flex;
+    align-items: center;
+    /* justify-content: center;
+    
+    width: 100%;
+    gap: 1em; */
+}
+
+
+
+
+
+.searching .MuiButton-root {
+    background-color: #9984D4;
+    color: #ffffff;
+}
+
+.searching .MuiButton-root:hover {
+background-color: #CAA8F5;
+}
