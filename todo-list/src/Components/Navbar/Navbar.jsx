@@ -1,6 +1,7 @@
 import './Navbar.css'
 import { AppBar, Toolbar, IconButton, Typography, Button, Box } from '@mui/material'
 import { AccountCircle } from '@mui/icons-material'
+import {Link} from 'react-router-dom'
 
 import React from 'react'
 
@@ -15,9 +16,9 @@ return (
         <IconButton>
         <AccountCircle />
         </IconButton>
-        <Button>
+        <Link to='/'><Button>
         Logout
-        </Button>
+        </Button></Link>
     </Box>
     </Toolbar>
 </AppBar>
