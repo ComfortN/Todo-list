@@ -1,70 +1,119 @@
-# Getting Started with Create React App
+# Todo List Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+This is a simple Todo List application built using React for the frontend and Node.js with Express and Knex.js for the backend. It allows users to create, edit, delete, and search for tasks. Users can sign up, log in, and their tasks are saved in the database and persist across sessions.
 
-### `npm start`
+### Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* User Authentication (Sign Up, Login, Logout)
+* Create, Read, Update, Delete (CRUD) operations for tasks
+* Task prioritization (High, Medium, Low)
+* Task due dates with calendar picker
+* Persistent tasks across sessions
+* Search functionality
+* User-specific tasks display
+* User profile with editable details
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Technologies Used
 
-### `npm test`
+### Frontend
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* React
+* Material-UI
+* Axios
+* Day.js
 
-### `npm run build`
+### Backend
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* Node.js
+* Express
+* Knex.js
+* SQLite
+* JWT for authentication
+* bcrypt for password hashing
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Clone the repository:
 
-### `npm run eject`
+```
+    git clone https://github.com/yourusername/todo-app.git
+    cd todo-app
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2. Install dependencies:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+    npm install
+    ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3. Set up the database:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+    npx knex migrate:latest
+    npx knex seed:run
+```
 
-## Learn More
+4. Navigate to the client directory and install dependencies:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+    cd todo-server
+    npm install
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+5. Start the backend server:
 
-### Code Splitting
+```
+    npm run server/start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+6. Start the frontend:
 
-### Analyzing the Bundle Size
+```
+    npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+## API Endpoints
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Auth
 
-### Advanced Configuration
+* POST /auth/signup - Register a new user
+* POST /auth/login - Log in a user
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Users
 
-### Deployment
+* GET /auth/user - Get the authenticated user's details
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Tasks
 
-### `npm run build` fails to minify
+* GET /todo - Get all tasks for the authenticated user
+* POST /todo - Create a new task
+* PUT /todo/:id - Update a task
+* DELETE /todo/:id - Delete a task
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Usage
+
+### User Authentication
+
+* Sign up for a new account
+* Log in with your credentials
+* Your JWT token will be stored in localStorage for authenticated requests
+
+### Task Management
+
+* Create tasks with a name, description, priority, and due date
+* Edit or delete tasks
+* Search for tasks by keyword
+* Tasks will persist across sessions
+
+### User Profile
+
+* Click the account icon to view and edit your profile details
+
+
+## Design Sketch
+
+![Todo list design sketch](https://github.com/user-attachments/assets/f50f3b50-fa2f-44b1-ab8f-b5a807e28219)
