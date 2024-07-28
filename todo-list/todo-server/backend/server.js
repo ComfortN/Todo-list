@@ -2,6 +2,9 @@ const express = require('express'); //a express import
 const cors = require('cors');
 const helmet = require('helmet');
 const bcrypt = require('bcrypt');
+const verifyToken = require('./middleware/verifyToken');
+const jwt = require('jsonwebtoken');
+const secret = process.env.JWT_SECRET || 'your_jwt_secret';
 
 const db = require('./dbConfig');
 const authRoutes = require('./routes/auth')
@@ -20,6 +23,60 @@ server.get('/', (req, res) => {
 });
 
 
+
+
+server.get('/users',  async (req, res) => {
+    try {
+        const users = await db('users').select('id', 'name', 'email');
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ message: 'Error retrieving users' });
+    }
+});
+
+
+server.get('/users', verifyToken,  async (req, res) => {
+    try {
+        const users = await db('users').select('id', 'name', 'email');
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ message: 'Error retrieving users' });
+    }
+});
+
+
+server.get('/todo', verifyToken, async (req, res) => {
+    const userId = req.userId; // Extract user id from token
+    try {
+        const todos = await db('todos').where({ userId });
+        res.status(200).json(todos);
+    } catch (err) {
+        res.status(500).json({ message: 'Error retrieving tasks', error: err.message });
+    }
+});
+
+
+server.post('/todo', verifyToken, async (req, res) => {
+    const { taskName, description, priority, dueDate } = req.body;
+    const userId = req.userId;
+
+    if (!taskName || !description || !priority || !dueDate) {
+        return res.status(400).json({ message: 'Please provide all required fields' });
+    }
+
+    try {
+        const [id] = await db('todos').insert({ taskName, description, priority, dueDate, userId });
+        const newTodo = await db('todos').where({ id }).first();
+        res.status(201).json(newTodo);
+    } catch (error) {
+        console.error('Error creating todo:', error);
+        res.status(500).json({ message: 'Error creating todo', error });
+    }
+});
+
+
+
+
 server.get('/users', async (req, res) => {
     //Get all todos
     try {
@@ -36,7 +93,7 @@ server.get('/users/:id', async (req, res) => {
         const { id } = req.params
         try {
             const currentUser = await db('users').where({ id });
-            currentTodo.length === 0 ? res.status(404).json({message: 'Todo not found'}) : res.status(200).json(currentUser)
+            currentUser.length === 0 ? res.status(404).json({message: 'User not found'}) : res.status(200).json(currentUser)
         
         } catch(err) {
             console.log({ message: "Error fetching users", err });
@@ -56,7 +113,8 @@ server.post('/signup', async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 12);
         const [id] = await db('users').insert({ name, email, password: hashedPassword });
         const newUser = await db('users').where({ id }).first();
-        res.status(201).json(newUser);
+        const token = jwt.sign({ id: newUser.id, email: newUser.email }, secret, { expiresIn: '1h' });
+        res.status(201).json({ token, user: newUser});
         } catch (error) {
         res.status(500).json({ message: 'Error registering user', error });
         }
@@ -69,12 +127,61 @@ server.post('/login', async (req, res) => {
     try {
         const user = await db('users').where({ email }).first();
         if (user && await bcrypt.compare(password, user.password)) {
-            res.status(200).json({ message: "Login successful" });
+            const token = jwt.sign({id: user.id, email: user.email}, secret, { expiresIn: '1h'} );
+            res.status(200).json({ token, message: "Login successful" });
         } else {
             res.status(400).json({ message: "Invalid credentials" });
         }
     } catch (error) {
         res.status(500).json({ message: "Error logging in", error });
+    }
+});
+
+
+server.put('/todo/:id', verifyToken, async (req, res) => {
+    const { taskName, description, priority, dueDate } = req.body;
+    const { id } = req.params;
+    const userId = req.userId;
+
+    if (!taskName || !description || !priority || !dueDate) {
+        return res.status(400).json({ message: 'Please provide all required fields' });
+    }
+
+    try {
+        const updatedTask = await db('todos')
+            .where({ id, userId }) // Ensure the task belongs to the logged-in user
+            .update({ taskName, description, priority, dueDate });
+
+        if (updatedTask) {
+            const newTask = await db('todos').where({ id }).first();
+            res.status(200).json(newTask);
+        } else {
+            res.status(404).json({ message: 'Task not found' });
+        }
+    } catch (error) {
+        console.error('Error updating task:', error);
+        res.status(500).json({ message: 'Error updating task', error });
+    }
+});
+
+
+server.delete('/todo/:id', verifyToken, async (req, res) => {
+    const { id } = req.params;
+    const userId = req.userId;
+
+    try {
+        const deletedTask = await db('todos')
+            .where({ id, userId }) // Ensure the task belongs to the logged-in user
+            .del();
+
+        if (deletedTask) {
+            res.status(200).json({ message: 'Task deleted successfully' });
+        } else {
+            res.status(404).json({ message: 'Task not found' });
+        }
+    } catch (error) {
+        console.error('Error deleting task:', error);
+        res.status(500).json({ message: 'Error deleting task', error });
     }
 });
 
@@ -96,84 +203,24 @@ server.delete('/users/:id', async (req, res) => {
 
 
 
+server.get('/todo/search', verifyToken, async (req, res) => {
+    const userId = req.userId;
+    const { query } = req.query; // Get the search query from the request
+
+    try {
+        const todos = await db('todos')
+            .where({ userId })
+            .andWhere(function() {
+                this.where('taskName', 'like', `%${query}%`)
+                    .orWhere('description', 'like', `%${query}%`);
+            });
+
+        res.status(200).json(todos);
+    } catch (err) {
+        res.status(500).json({ message: 'Error retrieving tasks', error: err.message });
+    }
+});
+
+
+
 module.exports = server;
-
-
-
-// server.get('/todos', async (req, res) => {
-//     //Get all todos
-//     try {
-//         const todos = await db('todos');
-//         res.json(todos)
-//     } catch(err) {
-//         console.log(err);
-//     }
-    
-// });
-
-
-// server.get('/todos/:id', async (req, res) => {
-//     //Get all todos
-//     const { id } = req.params
-//     try {
-//         const currentTodo = await db('todos').where({ id });
-//         currentTodo.length === 0 ? res.status(404).json({message: 'Todo not found'}) : res.status(200).json(currentTodo)
-//         // res.status(200).json(currentTodo)
-//     } catch(err) {
-//         console.log(err);
-//     }
-    
-// });
-
-// server.post('/todos', async (req, res) => {
-//     //POST all todos
-//     const {message} = req.body
-//     console.log({message})
-//     if (!message) {
-//         return res.status(400).json({message: 'No todo message included.'})
-//     }
-//     try {
-//         await db('todos').insert({message})
-//         res.status(201).json({message: 'Todo successfully stored!' })
-//     } catch(err) {
-//         console.log(err)
-//     }
-// });
-
-
-// server.put('/todos/:id', async (req, res) => {
-//     //PUT all todos
-//     const { id } = req.params
-//     const { message } = req.body
-//     if (!message) {
-//         return res.status(400).json({message: 'No todo message included.'})
-//     }
-//     try {
-//         await db('todos').where({ id }).update({ message })
-//         res.status(200).json({message: 'Update Successfull!'})
-        
-//     } catch (err) {
-//         console.log(err)
-        
-//     }
-// });
-
-
-// server.delete('/todos/:id', async (req, res) => {
-//     //DELETE all todos
-//     const { id } = req.params
-//     // const { message } = req.body
-    
-//     try {
-//         await db('todos').where({ id }).del()
-//         res.status(200).json({message: 'Delete Successfull!'})
-        
-//     } catch (err) {
-//         console.log(err)
-        
-//     }
-// });
-
-
-
-

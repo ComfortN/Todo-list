@@ -9,12 +9,15 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
+    
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
             const response = await axios.post('http://localhost:8888/auth/login',{email, password});
             console.log(response.data);
+            localStorage.setItem('token', response.data.token);
             navigate('/home');
         } catch (err) {
             console.log('Login error: ', err.response.data);

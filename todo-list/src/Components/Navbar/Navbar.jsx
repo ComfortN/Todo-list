@@ -1,11 +1,24 @@
 import './Navbar.css'
-import { AppBar, Toolbar, IconButton, Typography, Button, Box } from '@mui/material'
+import { AppBar, Toolbar, IconButton, Typography,  Box } from '@mui/material'
 import { AccountCircle } from '@mui/icons-material'
-import {Link} from 'react-router-dom'
+import Logout from './Logout';
+import Profile from '../Profile/Profile';
 
-import React from 'react'
+import React, {useState} from 'react'
 
 export default function Navbar() {
+
+    const [isProfileOpen, setProfileOpen] = useState(false);
+    
+
+    const handleProfileOpen = () => {
+        setProfileOpen(true);
+    };
+
+    const handleProfileClose = () => {
+        setProfileOpen(false);
+    };
+
 return (
 <AppBar position="static" className="Navbar" sx={{backgroundColor: '#230C33'}}>
     <Toolbar>
@@ -13,14 +26,13 @@ return (
         Todo List
     </Typography>
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <IconButton>
+        <IconButton onClick={handleProfileOpen}>
         <AccountCircle />
         </IconButton>
-        <Link to='/'><Button>
-        Logout
-        </Button></Link>
+        <Logout />
     </Box>
     </Toolbar>
+    <Profile open={isProfileOpen} onClose={handleProfileClose} />
 </AppBar>
 )
 }

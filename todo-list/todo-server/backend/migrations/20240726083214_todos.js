@@ -4,10 +4,15 @@
  */
 exports.up = async knex => {
 
-    // await knex.schema.createTable('todos', tbl => {
-    //     tbl.increments();
-    //     tbl.text('message', 256).notNullable();
-    // })
+    await knex.schema.createTable('todos', (table) => {
+        table.increments('id').primary();
+        table.string('taskName').notNullable();
+        table.string('description').notNullable();
+        table.string('priority').notNullable();
+        table.date('dueDate').notNullable();
+        table.integer('userId').unsigned().references('id').inTable('users').onDelete('CASCADE');
+        table.timestamps(true, true);
+      });
   
 };
 
@@ -17,6 +22,6 @@ exports.up = async knex => {
  */
 exports.down = async knex => {
 
-    // await knex.schema.dropTableIfExists('todos');
+    await knex.schema.dropTableIfExists('todos');
   
 };

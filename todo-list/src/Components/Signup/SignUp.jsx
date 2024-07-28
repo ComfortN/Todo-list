@@ -21,6 +21,7 @@ export default function SignUp() {
         try {
             const response = await axios.post('http://localhost:8888/auth/signup',{name,email, password});
             console.log(response.data);
+            localStorage.setItem('token', response.data.token)
             navigate('/');
         } catch (err) {
             console.log('Signup error: ', err.response.data);
