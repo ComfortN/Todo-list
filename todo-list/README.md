@@ -47,7 +47,7 @@ This is a simple Todo List application built using React for the frontend and No
 
 ```
     npm install
-    ```
+```
 
 3. Set up the database:
 
