@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import axios from 'axios'
 
+
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -16,7 +17,8 @@ export default function Login() {
         event.preventDefault();
         try {
             const response = await axios.post('http://localhost:8888/auth/login',{email, password});
-            console.log(response.data);
+            // console.log(response.data);
+            console.log('Successfully logged-in!')
             localStorage.setItem('token', response.data.token);
             navigate('/home');
         } catch (err) {

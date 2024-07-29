@@ -30,7 +30,7 @@ export default function Home() {
       
       <Navbar />
       <Typography variant="h4" color="#592E83">
-        Welcome, {userName}
+        Hi, {userName}
       </Typography>
 
       <TodoForm />

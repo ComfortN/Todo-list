@@ -1,0 +1,12 @@
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    width: 100vw;  /* Full viewport width */
+    position: fixed; /* Fixed positioning */
+    top: 0;
+    left: 0;
+     /* Semi-transparent background */
+    z-index: 9999; /* High z-index to overlay other content */
+}

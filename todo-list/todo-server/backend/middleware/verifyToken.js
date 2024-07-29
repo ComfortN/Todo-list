@@ -13,7 +13,7 @@ const verifyToken = (req, res, next) => {
 
     const token = tokenParts[1];
     const secret = process.env.JWT_SECRET || 'your_jwt_secret';
-    console.log(token)
+    // console.log(token)
     jwt.verify(token, secret, (err, decoded) => {
         if (err) {
             console.log('Failed to authenticate token:', err.message);

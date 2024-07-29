@@ -20,7 +20,8 @@ export default function SignUp() {
         }
         try {
             const response = await axios.post('http://localhost:8888/auth/signup',{name,email, password});
-            console.log(response.data);
+            // console.log(response.data);
+            console.log('Successfully Signed-up!')
             localStorage.setItem('token', response.data.token)
             navigate('/');
         } catch (err) {
