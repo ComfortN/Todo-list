@@ -7,6 +7,6 @@
     position: fixed; /* Fixed positioning */
     top: 0;
     left: 0;
-     /* Semi-transparent background */
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
     z-index: 9999; /* High z-index to overlay other content */
 }

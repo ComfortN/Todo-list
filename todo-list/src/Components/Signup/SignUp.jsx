@@ -39,6 +39,7 @@ return (
     </Box>
     
     <Box className="rightSignUp">
+    <Typography variant='h4' gutterBottom>Todo List</Typography>
         <Box className="signUpForm">
             <form onSubmit={handleSubmit}>
                 <Typography variant='h4' gutterBottom>Sign up</Typography>

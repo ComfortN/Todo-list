@@ -36,6 +36,7 @@ return (
     </Box>
 
     <Box className="rightLogin">
+    <Typography variant='h4' gutterBottom>Todo List</Typography>
         <Box className="loginForm">
             <form onSubmit={handleSubmit}>
                 <Typography variant='h4' gutterBottom>Login</Typography>

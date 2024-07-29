@@ -14,13 +14,14 @@
 }
 
 .rightLogin {
+    flex-direction: column;
     height: 100vh;
     background-color: #CAA8F5;
 }
 
 .loginForm {
-    width: 100%;
-    max-width: 400px;
+    width: 80%;
+    /* max-width: 400px; */
     padding: 16px;
     background-color: #592E83;
     border-radius: 8px;

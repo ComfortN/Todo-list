@@ -15,13 +15,15 @@ align-items: center;
 
 
 .rightSignUp {
+    flex-direction: column;
 height: 100vh;
 background-color: #CAA8F5;
 }
 
 .signUpForm {
-width: 100%;
-max-width: 400px;
+width: 80%;
+/* max-width: 400px; */
+margin: 20px;
 padding: 16px;
 background-color:#592E83;
 border-radius: 8px;
@@ -76,11 +78,16 @@ color: #CAA8F5;
 @media (max-width: 600px) {
 .SignUp {
     flex-direction: column;
+    justify-content: space-between;
 }
 
 .leftSignUp {
-    order: -1;
+    flex: 1;
 }
 
+.rightSignUp{
+    padding: 10px;
+}
 
 }
+
