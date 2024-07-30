@@ -1,0 +1,52 @@
+{
+  "users": [
+    {
+      "id": "e75a",
+      "name": "phumzile",
+      "email": "nqobile@gmail.com",
+      "password": "phumzile",
+      "todos": []
+    },
+    {
+      "id": "b903",
+      "name": "nqobile",
+      "email": "nqobilencp@gmail.com",
+      "password": "phumzile",
+      "todos": []
+    }
+  ],
+  "todos": [
+    {
+      "id": "e942",
+      "taskName": "check",
+      "description": "checking",
+      "priority": "high",
+      "dueDate": "2024-07-29T22:00:00.000Z",
+      "userId": "e75a"
+    },
+    {
+      "id": "4e17",
+      "taskName": "homework",
+      "description": "reasearch",
+      "priority": "low",
+      "dueDate": "2024-07-30T22:00:00.000Z",
+      "userId": "b903"
+    },
+    {
+      "id": "b197",
+      "taskName": "check",
+      "description": "shopping",
+      "priority": "medium",
+      "dueDate": "2024-07-29T22:00:00.000Z",
+      "userId": "b903"
+    },
+    {
+      "id": "fd56",
+      "taskName": "fc",
+      "description": "checking",
+      "priority": "high",
+      "dueDate": "2024-07-30T22:00:00.000Z",
+      "userId": "e75a"
+    }
+  ]
+}

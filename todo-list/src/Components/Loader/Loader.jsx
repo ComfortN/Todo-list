@@ -1,22 +1,15 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import { HashLoader } from 'react-spinners';
 import './Loader.css';
 
-const Loader = ({ onLoadingComplete }) => {
-    const [loading, setLoading] = useState(true);
+const Loader = ({ loading }) => {
+  if (!loading) return null; // If not loading, do not render the loader
 
-useEffect(() => {
-setLoading(false)
-setTimeout(() => {
-    setLoading(false);
-    if (onLoadingComplete) onLoadingComplete();
-}, 3000);
-}, [onLoadingComplete]);
-return (
+  return (
     <div className="loader-container">
-    {loading && <HashLoader size={50} color={"#592E83"} />}
+      <HashLoader size={50} color={"#592E83"} />
     </div>
-    );
+  );
 };
 
 export default Loader;

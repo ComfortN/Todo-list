@@ -10,20 +10,20 @@ export default function Home() {
 
   useEffect(() => {
     const fetchUserName = async () => {
-        const token = localStorage.getItem('token');
+      const token = JSON.parse(localStorage.getItem('token'));
+      if (token && token.id) {
         try {
-            const response = await axios.get('http://localhost:8888/auth/user', {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-            setUserName(response.data.name);
+          const response = await axios.get(`http://localhost:8888/users/${token.id}`);
+          setUserName(response.data.name);
         } catch (error) {
-            console.error('Error fetching user name:', error);
+          console.error('Error fetching user name:', error);
         }
+      } else {
+        console.error('No token found in localStorage');
+      }
     };
     fetchUserName();
-}, []);
+  }, []);
 
   return (
     <div>
