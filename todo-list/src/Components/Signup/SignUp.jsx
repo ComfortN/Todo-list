@@ -63,48 +63,24 @@ export default function SignUp() {
           <form onSubmit={handleSubmit}>
             <Typography variant='h4' gutterBottom>Sign up</Typography>
             <TextField
-              name='name'
-              type='text'
-              label='Name'
-              variant='standard'
-              fullWidth
-              margin="normal"
-              onChange={(e) => setName(e.target.value)}
-              error={Boolean(errors.name)}
-              helperText={errors.name}
+              name='name' type='text' label='Name' variant='standard' fullWidth
+              margin="normal" onChange={(e) => setName(e.target.value)}
+              error={Boolean(errors.name)} helperText={errors.name}
             />
             <TextField
-              name='Email'
-              type='email'
-              label='Email'
-              variant='standard'
-              fullWidth
-              margin="normal"
-              onChange={(e) => setEmail(e.target.value)}
-              error={Boolean(errors.email)}
-              helperText={errors.email}
+              name='Email' type='email' label='Email' variant='standard' fullWidth
+              margin="normal" onChange={(e) => setEmail(e.target.value)}
+              error={Boolean(errors.email)} helperText={errors.email}
             />
             <TextField
-              name='password'
-              type='password'
-              label='Password'
-              variant='standard'
-              fullWidth
-              margin="normal"
-              onChange={(e) => setPassword(e.target.value)}
-              error={Boolean(errors.password)}
-              helperText={errors.password}
+              name='password' type='password' label='Password'variant='standard' fullWidth
+              margin="normal" onChange={(e) => setPassword(e.target.value)}
+              error={Boolean(errors.password)} helperText={errors.password}
             />
             <TextField
-              name='confirmPassword'
-              type='password'
-              label='Confirm Password'
-              variant='standard'
-              fullWidth
-              margin="normal"
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              error={Boolean(errors.confirmPassword)}
-              helperText={errors.passwordMatch || errors.confirmPassword}
+              name='confirmPassword' type='password' label='Confirm Password' variant='standard'
+              fullWidth margin="normal" onChange={(e) => setConfirmPassword(e.target.value)}
+              error={Boolean(errors.confirmPassword)} helperText={errors.passwordMatch || errors.confirmPassword}
             />
             <Button type='submit' variant="contained" fullWidth>
               Sign Up

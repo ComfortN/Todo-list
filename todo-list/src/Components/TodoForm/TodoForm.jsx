@@ -126,33 +126,22 @@ export default function TodoForm() {
         <Typography variant="h5" gutterBottom>Task Form</Typography>
         <form onSubmit={handleSubmit}>
             <TextField
-                label="Task Name"
-                variant="outlined"
-                value={taskName}
-                onChange={(e) => setTaskName(e.target.value)}
-                error={Boolean(errors.taskName)}
-                helperText={errors.taskName}
-                fullWidth
-                margin="normal"
+                label="Task Name" variant="outlined" value={taskName}
+                onChange={(e) => setTaskName(e.target.value)} error={Boolean(errors.taskName)}
+                helperText={errors.taskName} fullWidth margin="normal"
             />
             <TextField
-                label="Description"
-                variant="outlined"
-                rows={4}
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                error={Boolean(errors.taskName)}
-                helperText={errors.taskName}
-                fullWidth
-                margin="normal"
+                label="Description" variant="outlined" rows={4} value={description}
+                onChange={(e) => setDescription(e.target.value)} error={Boolean(errors.taskName)}
+                helperText={errors.taskName} fullWidth margin="normal"
             />
             <FormControl fullWidth margin="normal">
+
                 <InputLabel>Priority</InputLabel>
+
                 <Select
-                value={priority}
-                onChange={(e) => setPriority(e.target.value)}
-                label="Priority"
-                variant="outlined"
+                value={priority} onChange={(e) => setPriority(e.target.value)}
+                label="Priority" variant="outlined"
                 >
                 <MenuItem value="high" style={{ backgroundColor: 'red', color: 'white' }}>High</MenuItem>
                 <MenuItem value="medium" style={{ backgroundColor: 'yellow', color: 'black' }}>Medium</MenuItem>
@@ -178,6 +167,7 @@ export default function TodoForm() {
             </form>
         </Box>
         <Box className="taskList">
+        <Typography variant="h5" gutterBottom className='tasks'>Todo Task</Typography>
             {tasks.map((task, index) => (
             <Box key={index} className="taskItem" style={{ backgroundColor: getPriorityColor(task.priority) }}>
                 <Box className="taskDetails">

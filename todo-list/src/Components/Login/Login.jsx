@@ -60,26 +60,13 @@ export default function Login() {
         <Box className="loginForm">
           <form onSubmit={handleSubmit}>
             <Typography variant='h4' gutterBottom>Login</Typography>
-            <TextField
-              name='Email'
-              type='email'
-              label='Email'
-              variant='standard'
-              fullWidth
-              margin="normal"
-              onChange={(e) => setEmail(e.target.value)}
-              error={Boolean(errors.email)}
+            <TextField name='Email' type='email' label='Email' variant='standard' fullWidth margin="normal"
+              onChange={(e) => setEmail(e.target.value)} error={Boolean(errors.email)}
               helperText={errors.email}
             />
             <TextField
-              name='password'
-              type='password'
-              label='Password'
-              variant='standard'
-              fullWidth
-              margin="normal"
-              onChange={(e) => setPassword(e.target.value)}
-              error={Boolean(errors.password)}
+              name='password' type='password' label='Password' variant='standard' fullWidth
+              margin="normal" onChange={(e) => setPassword(e.target.value)} error={Boolean(errors.password)}
               helperText={errors.password}
             />
             <Button type='submit' variant="contained" fullWidth>
