@@ -10,17 +10,19 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+  const timer = setTimeout(() => {
+  setIsLoading(false);
+}, 2000);
     
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
     <div className="App">
-      {isLoading ? (
+      
         <Loader loading={isLoading} />
-      ) : (
+       {!isLoading && (
+
         <Router>
           <Routes>
             <Route path='/' element={<Login />} />

@@ -5,11 +5,11 @@ import './Navbar.css';
 import Loader from '../Loader/Loader';
 
 export default function Logout() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // setLoading(true);
+    setLoading(true);
     setTimeout(() => {
       localStorage.removeItem('token');
       navigate('/');
@@ -20,7 +20,7 @@ export default function Logout() {
   return (
     <>
       <Loader loading={loading} />
-      <Button onClick={handleLogout}>
+      <Button onClick={handleLogout} disabled= {loading}>
         Logout
       </Button>
     </>
