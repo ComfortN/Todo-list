@@ -9,27 +9,47 @@ export default function Search({ setTasks }) {
 
   const handleSearch = async () => {
     const user = JSON.parse(localStorage.getItem('token'));
+
     if (!user) {
       console.error('No user found in localStorage');
       setSearchStatus('No user logged in');
       return;
     }
 
+    console.log('Searching for:', searchQuery, 'with userId:', user.id);
+
     try {
       const response = await axios.get('http://localhost:8888/todos', {
         params: {
-          q: searchQuery,
+          // q: searchQuery,
           userId: user.id
         }
       });
 
-      if (response.data.length === 0) {
+
+      if (!Array.isArray(response.data)) {
+        console.error('Unexpected response data:', response.data);
+        setSearchStatus('Error occurred while searching');
+        return;
+      }
+
+
+      const filteredTasks = response.data.filter(task => 
+        task.taskName && task.taskName.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+  
+      console.log('Filtered tasks:', filteredTasks);
+
+      console.log('Search response:', response.data)
+
+      if (filteredTasks.length === 0) {
+        console.log('no data')
         setSearchStatus('No results found');
       } else {
         setSearchStatus('');
       }
 
-      setTasks(response.data);
+      setTasks(filteredTasks);
     } catch (error) {
       console.error('Error searching tasks:', error);
       setSearchStatus('Error occurred while searching');
@@ -60,3 +80,5 @@ export default function Search({ setTasks }) {
     </Box>
   );
 }
+
+
