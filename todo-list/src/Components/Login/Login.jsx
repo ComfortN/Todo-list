@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import axios from 'axios';
 import Loader from '../Loader/Loader';
+import Alerts from '../Alerts/Alerts';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -11,6 +12,10 @@ export default function Login() {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertType, setAlertType] = useState('success');
+  const [alertVisible, setAlertVisible] = useState(false);
+  
 
   const validate = () => {
     let tempErrors = {};
@@ -33,13 +38,31 @@ export default function Login() {
 
         if (response.data.length > 0) {
           const user = response.data[0];
-          localStorage.setItem('token', JSON.stringify({ id: user.id }));
-          navigate('/home');
-        } else {
-          alert('Invalid credentials');
+          if (user.password === password){
+            localStorage.setItem('token', JSON.stringify({ id: user.id }));
+            setAlertMessage('Successfully logged -in');
+            setAlertType('success');
+            setAlertVisible(true);
+            navigate('/home');
+          } else {
+            setAlertMessage('Invalid credentials');
+            setAlertType('error');
+            setAlertVisible(true);
+            // alert('Invalid credentials');
         }
+      } else {
+        setAlertMessage('Invalid credentials');
+        setAlertType('error');
+        setAlertVisible(true);
+        // alert('Invalid credentials');
+    }
+
+          
       } catch (err) {
-        console.log('Login error: ', err);
+        setAlertMessage('Login error: ' + err.message);
+        setAlertType('error');
+        setAlertVisible(true);
+        // console.log('Login error: ', err);
       } finally {
         setLoading(false);
       }
@@ -49,6 +72,12 @@ export default function Login() {
   return (
     <Box className="Login">
         <Loader loading={loading} />
+        <Alerts
+        message={alertMessage}
+        severity={alertType}
+        visible={alertVisible}
+        onClose={() => setAlertVisible(false)}
+      />
       <Box className="leftLogin">
         <Box className="loginImg">
           <img src='./login.png' alt='' />

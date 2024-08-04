@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import axios from 'axios';
 import Loader from '../Loader/Loader';
+import Alerts from '../Alerts/Alerts';
 
 
 export default function SignUp() {
@@ -13,6 +14,9 @@ export default function SignUp() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertType, setAlertType] = useState('success');
+  const [alertVisible, setAlertVisible] = useState(false);
   
   const navigate = useNavigate();
 
@@ -31,17 +35,40 @@ export default function SignUp() {
     event.preventDefault();
 
     if (password !== confirmPassword) {
-        return alert('Passwords do not match');
+      setAlertMessage('Passwords do not match');
+      setAlertType('error');
+      setAlertVisible(true);
+        return;
       }
       setLoading(true);
 
     if (validate()) {
       try {
+
+        const existingUserResponse = await axios.get('http://localhost:8888/users', {
+          params: { email }
+        });
+
+        if (existingUserResponse.data.length > 0) {
+          setAlertMessage('User already exists');
+          setAlertType('error');
+          setAlertVisible(true);
+          setLoading(false);
+          return;
+        }
+
+
         const response = await axios.post('http://localhost:8888/users', { name, email, password, todos: [] });
         localStorage.setItem('token', JSON.stringify({ id: response.data.id }));
-        navigate('/home');
+        setAlertMessage('Successfully Signed Up');
+        setAlertType('success');
+        setAlertVisible(true);
+        setTimeout(() => navigate('/home'), 2000);
       } catch (err) {
-        console.log('Signup error: ', err);
+        setAlertMessage('Signup error: ' + err.message);
+        setAlertType('error');
+        setAlertVisible(true);
+        // console.log('Signup error: ', err);
       } finally {
         setLoading(false);
       }
@@ -51,6 +78,12 @@ export default function SignUp() {
   return (
     <Box className="SignUp">
         <Loader loading={loading} />
+        <Alerts
+        message={alertMessage}
+        severity={alertType}
+        visible={alertVisible}
+        onClose={() => setAlertVisible(false)}
+      />
       <Box className="leftSignUp">
         <Box className="signUpImg">
           <img src='./signup.png' alt='' />

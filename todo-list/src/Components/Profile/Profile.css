@@ -1,6 +1,7 @@
 .modalContainer {
     padding: 20px;
-    background-color: #CAA8F5;
+    color: #592E83;
+    background-color: #fff;
     margin: auto;
     margin-top: 10%;
     width: 300px;
@@ -10,18 +11,27 @@
 
 .modalTitle {
     margin-bottom: 16px;
+    color: #592E83;
 }
 
 .textField {
     margin-bottom: 16px;
 }
 
-.saveButton {
-    width: 100%;
+.modalContainer .saveButton {
+    width: 50%;
+    margin-top: 5px;
     background-color: #230C33;
     color: white;
 }
 
 .saveButton:hover {
     background-color: #592E83;
+}
+
+
+@media (max-width:603px) {
+    .modalContainer {
+        width: 200px;
+    }
 }
