@@ -1,16 +1,21 @@
 {
   "users": [
     {
-      "id": "e75a",
-      "name": "phumzile",
+      "name": "phumzile ngwenya",
       "email": "nqobile@gmail.com",
-      "password": "phumzile",
-      "todos": []
+      "id": "e75a"
     },
     {
       "id": "b903",
       "name": "nqobile",
       "email": "nqobilencp@gmail.com",
+      "password": "phumzile",
+      "todos": []
+    },
+    {
+      "id": "8f36",
+      "name": "unathi",
+      "email": "unathi@check.com",
       "password": "phumzile",
       "todos": []
     }

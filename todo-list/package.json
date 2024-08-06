@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^7.1.0",
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^5.16.4",
@@ -16,20 +17,22 @@
     "cors": "^2.8.5",
     "dayjs": "^1.11.12",
     "helmet": "^7.1.0",
+    "path-browserify": "^1.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.25.1",
     "react-scripts": "5.0.1",
     "react-spinners": "^0.14.1",
+    "sql.js": "^1.11.0",
+    "todo-list": "file:",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "craco start",
     "json-server": "json-server --watch db.json --port 8888",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
-    
   },
   "eslintConfig": {
     "extends": [

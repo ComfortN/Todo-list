@@ -5,16 +5,18 @@ import Home from './Components/Home/Home';
 import './App.css';
 import Loader from './Components/Loader/Loader';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {initializeDatabase} from './Database/Statements';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-  const timer = setTimeout(() => {
-  setIsLoading(false);
-}, 2000);
-    
-    return () => clearTimeout(timer);
+    const initDb = async () => {
+      await initializeDatabase();
+      setIsLoading(false);
+    };
+
+    initDb();
   }, []);
 
   return (
