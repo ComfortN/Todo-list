@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './Profile.css';
 import { Modal, Box, Typography, TextField, Button } from '@mui/material';
 import axios from 'axios';
+import { initDatabase, getUserById, updateUser } from '../../Database/Statements'; // Update the path accordingly
+
 
 export default function Profile({ open, onClose }) {
   const [user, setUser] = useState({});
@@ -15,10 +17,11 @@ export default function Profile({ open, onClose }) {
         const user = JSON.parse(localStorage.getItem('token'));
         if (user) {
           try {
-            const response = await axios.get(`http://localhost:8888/users/${user.id}`);
-            setUser(response.data);
-            setName(response.data.name);
-            setEmail(response.data.email);
+            const database = await initDatabase();
+            const userData = getUserById(database, user.id);
+            setUser(userData);
+            setName(userData.name);
+            setEmail(userData.email);
           } catch (error) {
             console.error('Error fetching user data:', error);
           }
@@ -31,7 +34,8 @@ export default function Profile({ open, onClose }) {
   const handleSave = async () => {
     const user = JSON.parse(localStorage.getItem('token'));
     try {
-      await axios.put(`http://localhost:8888/users/${user.id}`, { name, email });
+      const database = await initDatabase();
+      updateUser(database, user.id, { name, email })
       // Update local storage with new user data
       localStorage.setItem('token', JSON.stringify({ ...user, name, email }));
       onClose();
