@@ -22,9 +22,10 @@ const initDatabase = async () => {
 };
 
 
+//Saves the current state of the database to localStorage.
 const saveDatabase = (db) => {
   const data = db.export();
-  const buffer = new Uint8Array(data);
+  const buffer = new Uint8Array(data); //converting the binary data of the database
   localStorage.setItem('sqlite_db', JSON.stringify(Array.from(buffer)));
 };
 

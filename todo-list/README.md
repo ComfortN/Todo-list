@@ -3,7 +3,7 @@
 
 ## Description
 
-This is a simple Todo List application built using React for the frontend and Node.js with Express and Knex.js for the backend. It allows users to create, edit, delete, and search for tasks. Users can sign up, log in, and their tasks are saved in the database and persist across sessions.
+This is a simple Todo List application built using React for the frontend. It uses sql.js for database management. It allows users to create, edit, delete, and search for tasks. Users can sign up, log in, and their tasks are saved in the database and persist across sessions.
 
 ### Features
 
@@ -22,25 +22,18 @@ This is a simple Todo List application built using React for the frontend and No
 
 * React
 * Material-UI
-* Axios
+* Sql.js
 * Day.js
 
-### Backend
 
-* Node.js
-* Express
-* Knex.js
-* SQLite
-* JWT for authentication
-* bcrypt for password hashing
 
 ## Installation
 
 1. Clone the repository:
 
 ```
-    git clone https://github.com/yourusername/todo-app.git
-    cd todo-app
+    git clone https://github.com/ComfortN/todo-list.git
+    cd todo-list
 ```
 
 2. Install dependencies:
@@ -52,47 +45,17 @@ This is a simple Todo List application built using React for the frontend and No
 3. Set up the database:
 
 ```
-    npx knex migrate:latest
-    npx knex seed:run
+    npm install sql.js
+    
 ```
 
-4. Navigate to the client directory and install dependencies:
 
-```
-    cd todo-server
-    npm install
-```
-
-5. Start the backend server:
-
-```
-    npm run server/start
-```
-
-6. Start the frontend:
+4. Start the frontend:
 
 ```
     npm start
 ```
 
-
-## API Endpoints
-
-### Auth
-
-* POST /auth/signup - Register a new user
-* POST /auth/login - Log in a user
-
-### Users
-
-* GET /auth/user - Get the authenticated user's details
-
-### Tasks
-
-* GET /todo - Get all tasks for the authenticated user
-* POST /todo - Create a new task
-* PUT /todo/:id - Update a task
-* DELETE /todo/:id - Delete a task
 
 ## Usage
 
@@ -100,7 +63,7 @@ This is a simple Todo List application built using React for the frontend and No
 
 * Sign up for a new account
 * Log in with your credentials
-* Your JWT token will be stored in localStorage for authenticated requests
+* Your userId token will be stored in localStorage for authenticated requests
 
 ### Task Management
 
@@ -112,6 +75,20 @@ This is a simple Todo List application built using React for the frontend and No
 ### User Profile
 
 * Click the account icon to view and edit your profile details
+
+
+### Database Functions
+
+* initDatabase: Initializes the database and creates tables if necessary.
+* saveDatabase: Saves the current state of the database to local storage.
+* insertUser: Inserts a new user into the database.
+* getUser: Retrieves a user by email.
+* getUserById: Retrieves a user by ID.
+* insertTask: Inserts a new task into the database.
+* updateTask: Updates an existing task.
+* deleteTask: Deletes a task from the database.
+* getTasksByUser: Retrieves tasks for a specific user.
+* searchTasks: Searches for tasks by name.
 
 
 ## Design Sketch
