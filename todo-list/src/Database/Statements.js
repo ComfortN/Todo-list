@@ -107,6 +107,23 @@ const getAllUsers = (db) => {
   return users;
 };
 
+
+const updateUser = async (db, userId, { name, email }) => {
+
+  const query = `
+    UPDATE users
+    SET name = ?, email = ?
+    WHERE id = ?
+  `;
+  
+  await db.run(query, [name, email, userId]);
+
+  // Save the database
+  saveDatabase(db);
+};
+
+
+
 const updateTask = async (db, taskId, updatedTask) => {
   const { taskName, description, priority, dueDate } = updatedTask;
   const query = `
@@ -155,6 +172,24 @@ const getTasksByUser = (db, userId) => {
   return tasks;
 };
 
+
+const searchTasks = (db, userId, query) => {
+  const stmt = db.prepare(`
+    SELECT * FROM tasks
+    WHERE userId = ? AND taskName LIKE ?
+  `);
+  stmt.bind([userId, `%${query}%`]);
+
+  const tasks = [];
+  while (stmt.step()) {
+    const task = stmt.getAsObject();
+    tasks.push(task);
+  }
+  stmt.free();
+  return tasks;
+};
+
+
 const logDatabaseContent = (db) => {
   const users = getAllUsers(db);
   console.log('All Users:', users);
@@ -164,7 +199,7 @@ const logDatabaseContent = (db) => {
   });
 };
 
-export { initDatabase, insertUser, getUser, getUserById, getAllUsers, insertTask, updateTask, deleteTask, getTasksByUser, logDatabaseContent };
+export { initDatabase, insertUser, getUser, getUserById, getAllUsers, updateUser, insertTask, updateTask, deleteTask, getTasksByUser,searchTasks, logDatabaseContent };
 
 
 
