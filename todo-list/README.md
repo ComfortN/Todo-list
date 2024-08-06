@@ -42,10 +42,10 @@ This is a simple Todo List application built using React for the frontend. It us
     npm install
 ```
 
-3. Set up the database:
+3. Install CRACO (Create React App Configuration Override):
 
 ```
-    npm install sql.js
+    npm install @craco/craco --save
     
 ```
 
