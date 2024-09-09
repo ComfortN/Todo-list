@@ -36,6 +36,12 @@ This is a simple Todo List application built using React for the frontend. It us
     cd todo-list
 ```
 
+2. Git checkout to sql_js branch:
+
+```
+    git checkout sql_lite
+```
+
 2. Install dependencies:
 
 ```
